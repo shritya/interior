@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Quotation | Desire Interior</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="http://desireinteriors.in/wp-content/uploads/2020/02/desire-interior-logo.png" alt="logo" class="logo">
+            <!-- <ul>
+                <li><a href="">Link1</a></li>
+                <li><a href="">Link1</a></li>
+                <li><a href="">Link1</a></li>
+            </ul> -->
+        </nav>
+    </header>
+    <section class="hero">
+        <div class="slideshow-container">
+          
+            <div class="mySlides fade">
+              <img class="hero-image" src="http://desireinteriors.in/wp-content/uploads/2022/03/7J8A4139-HDR-768x512.jpg">
+              <!-- <div class="text">Caption Text</div> -->
+            </div>
+            
+            <div class="mySlides fade">
+              <img class="hero-image" src="http://desireinteriors.in/wp-content/uploads/2022/03/7J8A7821-HDR-copy-2-768x512.jpg">
+              <!-- <div class="text">Caption Two</div> -->
+            </div>
+            
+            <div class="mySlides fade">
+              <img class="hero-image" src="http://desireinteriors.in/wp-content/uploads/2022/03/7J8A9174-HDR-1-1-768x512.jpg">
+              <!-- <div class="text">Caption Three</div> -->
+            </div>
+            
+        </div>
+            <br>           
+            <div style="text-align:center">
+              <span class="dot"></span> 
+              <span class="dot"></span> 
+              <span class="dot"></span> 
+            </div>
+            <div class="mtitle"><h1>Get Your Smart<span style="color: #a2c322;"> <br>Quotation</span><br>Here 👇</h1></div>
+            <script>
+            let slideIndex = 0;
+            showSlides();
+            function showSlides() {
+              let i;
+              let slides = document.getElementsByClassName("mySlides");
+              let dots = document.getElementsByClassName("dot");
+              for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+              }
+              slideIndex++;
+              if (slideIndex > slides.length) {slideIndex = 1}    
+              for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+              }
+              slides[slideIndex-1].style.display = "block";  
+              dots[slideIndex-1].className += " active";
+              setTimeout(showSlides, 2000); // Change image every 2 seconds
+            }
+            </script>
+           
+    </section>
+    <br>
+    <section class="quotation">
+        <div class="secheader"><h3>Enter Measurment's</h3></div>
+    
+        <br>
+<br>
+<form action="calc.php" method="post">
+
+            <div class="product">
+                <img style="min-width:200px; max-width: 500px; border-radius: 50px;" class="product-img" src="http://desireinteriors.in/wp-content/uploads/2018/01/home_img1.jpg" alt="Product Image">
+                <div>
+
+                    <h2 class="product-txt">Product</h2>
+                    <p>Details</p>
+                </div>
+                
+                <input class="input-style" type="number" name="product1" placeholder="Enter Quantity">
+                
+            
+            </div>
+            <div class="product">
+                <img style="min-width:200px; max-width: 500px; border-radius: 50px;" class="product-img" src="http://desireinteriors.in/wp-content/uploads/2018/01/home_img2.jpg" alt="Product Image">
+                <div>
+
+                    <h2 class="product-txt">Product</h2>
+                    <p>Details</p>
+                </div>
+                
+                <input class="input-style" type="number" name="product1" placeholder="Enter Quantity">
+                
+            
+            </div>
+            <div class="product">
+                <img style="min-width:200px; max-width: 500px; border-radius: 50px;" class="product-img" src="http://desireinteriors.in/wp-content/uploads/2022/05/1-2-1024x683.jpg" alt="Product Image">
+                <div>
+
+                    <h2 class="product-txt">Product</h2>
+                    <p>Details</p>
+                </div>
+                
+                <input class="input-style" type="number" name="product1" placeholder="Enter Quantity">
+                
+            
+            </div>
+            <div class="product">
+                <img style="min-width:200px; max-width: 500px; border-radius: 50px;" class="product-img" src="http://desireinteriors.in/wp-content/uploads/2022/05/239124513_1201873083620625_4784838002700014916_n.jpg" alt="Product Image">
+                <div>
+
+                    <h2 class="product-txt">Product</h2>
+                    <p>Details</p>
+                </div>
+                
+                <input class="input-style" type="number" name="product1" placeholder="Enter Quantity">
+                
+            
+            </div>
+            <div class="product">
+                <img style="min-width:200px; max-width: 500px; border-radius: 50px;" class="product-img" src="http://desireinteriors.in/wp-content/uploads/2022/03/7J8A2129-HDR-1-768x512.jpg" alt="Product Image">
+                <div>
+
+                    <h2 class="product-txt">Product</h2>
+                    <p>Details</p>
+                </div>
+                
+                <input class="input-style" type="number" name="product1" placeholder="Enter Quantity">
+                
+            
+            </div>
+        <div class="end">
+            <h3>Enter your details and get your Quotation</h3>
+            <div class="client-input ">
+                
+                <input class="input-style" type="text" name="C_name" placeholder="Enter Your name" required>
+                <input class="input-style" type="number" name="C_num" placeholder="Enter Your number"required>
+                <input class="button" type="button" value="Submit">
+                
+        </div>
+        </div>
+</form>
+<br>
+    </section>
+    <footer>
+    <img src="http://desireinteriors.in/wp-content/uploads/2020/02/desire-interior-logo.png" alt="logo" class="logo">
+    <div class="links"></div>
+    </footer>
+</body>
+</html>

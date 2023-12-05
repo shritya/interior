@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Reset some default styles */
+        body, h1, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .company-details {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .company-details h2 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .company-details p {
+            margin: 0;
+        }
+
+        .customer-details {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .customer-details h2 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .customer-details p {
+            margin: 0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button#submitButton {
+            background-color: #4CAF50;
+        }
+
+        #totalCost {
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border: 2px solid #007bff;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Quotation styles */
+        .quotation-heading {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Process styles */
+        .process {
+            text-align: left;
+            margin-top: 20px;
+            padding-left: 20px;
+        }
+
+        /* Page size styles */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            body {
+                margin: 20px;
+            }
+            .container {
+                box-shadow: none;
+                border: none;
+                max-width: 100%;
+            }
+            button {
+                display: none;
+            }
+        }
+    </style>
+    <title>TENTATIVE QUOTATION</title>
+</head>
+<body>
+    <header>
+        <!-- Removed the heading here -->
+    </header>
+    <div class="container">
+        <div class="company-details">
+            <h2>Company Details</h2>
+            <p>Company Name: Desire Interior</p>
+            <p>Address: Kothrud</p>
+            <p>Phone Number: 8612546554</p>
+            <p>Email: suyagaj@gmail.com</p>
+        </div>
+        <div class="customer-details">
+            <h2>Client Details</h2>
+            <p>Client Name: <span id="clientNameOutput"></span></p>
+            <p>Client Address: <span id="clientAddressOutput"></span></p>
+            <p>Client Contact No: <span id="clientContactNoOutput"></span></p>
+        </div>
+        <form id="quotationForm">
+            <div class="form-group">
+                <label for="clientName">Client's Name:</label>
+                <input type="text" id="clientName" required>
+            </div>
+            <div class="form-group">
+                <label for="clientAddress">Client's Address:</label>
+                <input type="text" id="clientAddress" required>
+            </div>
+            <div class="form-group">
+                <label for="clientContactNo">Client's Contact No:</label>
+                <input type="tel" id="clientContactNo" required>
+            </div>
+            <div id="itemFields">
+                <!-- Item input fields will be generated here -->
+            </div>
+            <button type="button" onclick="addQuotationItem()">Add Item</button>
+            <button type="button" onclick="calculateTotal()">Calculate Total</button>
+            <button id="submitButton" type="button" onclick="generateTemplate()">Submit</button>
+        </form>
+
+        <!-- Total Cost by Room Type -->
+        <div id="roomTypeTotals">
+            <h2>Quotation:</h2>
+        </div>
+
+        <!-- Table-based Template Page -->
+        <div id="templatePage" style="display: none;">
+            <div class="form-group">
+                <label for="customerNameOutput">Client's Name:</label>
+                <span id="clientNameOutputTemplate"></span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Room Type</th>
+                        <th>Item Type</th>
+                        <th>Unit Price</th>
+                        <th>Dimensions (ft)</th>
+                        <th>Personal Input</th>
+                        <th>Total Cost</th>
+                    </tr>
+                </thead>
+                <tbody id="quotationItemsTableBody">
+                    <!-- Quotation items will be inserted here dynamically -->
+                </tbody>
+            </table>
+            <button id="printButton" onclick="printQuotation()">Print Quotation</button>
+            <button id="backButton" onclick="goBack()">Back</button>
+        </div>
+
+    </div>
+
+    <!-- Our Working Process -->
+    <div class="process">
+        <h2>OUR WORKING PROCESS</h2>
+        <ul>
+            <li>Basic Quotations</li>
+            <li>Measurements After 10% Of Advance Amount</li>
+            <li>Plan Finalization As Per Given Options</li>
+            <li>Rendered 3d View After Plan Finalization</li>
+            <li>Material Selection</li>
+            <li>Revised Quote According To 3d And Material Used In 3d</li>
+            <li>Service Layouts (Electrical Layout, False Ceiling Layout)</li>
+            <li>Revised Quote According To Electrical And Painting</li>
+            <li>Working Detail Drawing</li>
+            <li>On Site Execution</li>
+            <li>Decorative Item Selection</li>
+            <li>Final Bill</li>
+        </ul>
+    </div>
+
+    <script>
+        let quotationItems = [];
+
+        function addQuotationItem() {
+            const itemFields = document.getElementById("itemFields");
+            const itemIndex = quotationItems.length + 1;
+
+            const itemDiv = document.createElement("div");
+            itemDiv.classList.add("form-group");
+
+            itemDiv.innerHTML = `
+                <label for="roomType${itemIndex}">Room Type:</label>
+                <select id="roomType${itemIndex}" required>
+                    <option value="Living Room">Living Room</option>
+                    <option value="Kitchen">Kitchen</option>
+                    <option value="Dry Balcony">Dry Balcony</option>
+                    <option value="Master Bedroom">Master Bedroom</option>
+                    <option value="Kid's Bedroom">Kid's Bedroom</option>
+                    <option value="Parent's Bedroom">Parent's Bedroom</option>
+                </select>
+                <label for="itemType${itemIndex}">Item Type:</label>
+                <select id="itemType${itemIndex}" required onchange="checkOtherOption(${itemIndex})">
+                    <option value="Showcase">Showcase</option>
+                    <option value="Glass Profile Shutter">Glass Profile Shutter</option>
+                    <option value="Lower Display unit">Lower Display unit</option>
+                    <option value="Display unit">Display unit</option>
+                    <option value="Sofa">Sofa</option>
+                    <option value="Console Unit">Console Unit</option>
+                    <option value="Crockery unit">Crockery unit</option>
+                    <option value="Other">Other</option>
+                </select>
+                <div id="otherItemTypeDiv${itemIndex}" style="display:none;">
+                    <label for="otherItemType${itemIndex}">Other Item Type:</label>
+                    <input type="text" id="otherItemType${itemIndex}">
+                </div>
+                <label for="unitPrice${itemIndex}">Unit Price:</label>
+                <input type="number" id="unitPrice${itemIndex}" required>
+                <label for="length${itemIndex}">Length (in ft):</label>
+                <input type="number" id="length${itemIndex}" required>
+                <label for="height${itemIndex}">Height (in ft):</label>
+                <input type="number" id="height${itemIndex}" required>
+                <label for="depth${itemIndex}">Depth (in ft):</label>
+                <input type="number" id="depth${itemIndex}" required>
+                <label for="personalInput${itemIndex}">Personal Input:</label>
+                <textarea id="personalInput${itemIndex}" rows="4"></textarea>
+                <div id="totalCost${itemIndex}" class="item-total-cost"></div>
+                <button type="button" onclick="calculateTotalItem(${itemIndex})">Calculate Total</button>
+            `;
+
+            itemFields.appendChild(itemDiv);
+        }
+
+        function checkOtherOption(itemIndex) {
+            const itemTypeSelect = document.getElementById(`itemType${itemIndex}`);
+            const otherItemTypeDiv = document.getElementById(`otherItemTypeDiv${itemIndex}`);
+
+            if (itemTypeSelect.value === "Other") {
+                otherItemTypeDiv.style.display = "block";
+            } else {
+                otherItemTypeDiv.style.display = "none";
+            }
+        }
+
+        function calculateTotalItem(itemIndex) {
+            const unitPrice = parseFloat(document.getElementById(`unitPrice${itemIndex}`).value);
+            const length = parseFloat(document.getElementById(`length${itemIndex}`).value);
+            const height = parseFloat(document.getElementById(`height${itemIndex}`).value);
+            const depth = parseFloat(document.getElementById(`depth${itemIndex}`).value);
+            const personalInput = document.getElementById(`personalInput${itemIndex}`).value;
+
+            const totalCost = (unitPrice * length * height * depth).toFixed(2);
+
+            const item = {
+                roomType: document.getElementById(`roomType${itemIndex}`).value,
+                itemType: document.getElementById(`itemType${itemIndex}`).value,
+                unitPrice,
+                length,
+                height,
+                depth,
+                personalInput,
+                totalCost,
+            };
+
+            quotationItems[itemIndex - 1] = item;
+
+            const totalCostElement = document.getElementById(`totalCost${itemIndex}`);
+            totalCostElement.textContent = `Total Cost: ₹${totalCost}`;
+
+            // Calculate and update the total cost by room type
+            updateTotalCostByRoomType();
+        }
+
+        function calculateTotal() {
+            quotationItems = [];
+
+            const itemFields = document.getElementById("itemFields").children;
+
+            for (let i = 0; i < itemFields.length; i++) {
+                calculateTotalItem(i + 1);
+            }
+
+            const grandTotal = quotationItems.reduce((acc, item) => acc + parseFloat(item.totalCost), 0);
+
+            document.getElementById("grandTotalCostOutput").textContent = "Grand Total: ₹" + grandTotal.toFixed(2);
+        }
+
+        function generateTemplate() {
+            // Get the client details from the form
+            const clientNameOutput = document.getElementById("clientName").value;
+            const clientAddressOutput = document.getElementById("clientAddress").value;
+            const clientContactNoOutput = document.getElementById("clientContactNo").value;
+
+            // Populate the client details on the template page
+            document.getElementById("clientNameOutputTemplate").textContent = clientNameOutput;
+            document.getElementById("clientAddressOutput").textContent = clientAddressOutput;
+            document.getElementById("clientContactNoOutput").textContent = clientContactNoOutput;
+
+            // Remove existing rows in the table
+            const tableBody = document.getElementById("quotationItemsTableBody");
+            while (tableBody.firstChild) {
+                tableBody.removeChild(tableBody.firstChild);
+            }
+
+            // Populate the item details on the template page
+            quotationItems.forEach((item) => {
+                const newRow = document.createElement("tr");
+                newRow.innerHTML = `
+                    <td>${item.roomType}</td>
+                    <td>${item.itemType}</td>
+                    <td>₹${item.unitPrice.toFixed(2)}</td>
+                    <td>${item.length} ft x ${item.height} ft x ${item.depth} ft</td>
+                    <td>${item.personalInput}</td>
+                    <td>₹${item.totalCost}</td>
+                `;
+                tableBody.appendChild(newRow);
+            });
+
+            // Display the template page and hide the form
+            document.getElementById("templatePage").style.display = "block";
+            document.getElementById("quotationForm").style.display = "none";
+        }
+
+        function updateTotalCostByRoomType() {
+            const roomTypes = {};
+
+            quotationItems.forEach((item) => {
+                if (roomTypes[item.roomType]) {
+                    roomTypes[item.roomType] += parseFloat(item.totalCost);
+                } else {
+                    roomTypes[item.roomType] = parseFloat(item.totalCost);
+                }
+            });
+
+            const roomTypeTotals = document.getElementById("roomTypeTotals");
+            roomTypeTotals.innerHTML = "<h2>Total Cost by Room Type:</h2>";
+
+            for (const roomType in roomTypes) {
+                if (roomTypes.hasOwnProperty(roomType)) {
+                    const totalCost = roomTypes[roomType].toFixed(2);
+                    const roomTypeTotalDiv = document.createElement("div");
+                    roomTypeTotalDiv.innerHTML = `<p>Total Cost for ${roomType}: ₹${totalCost}</p>`;
+                    roomTypeTotals.appendChild(roomTypeTotalDiv);
+                }
+            }
+        }
+
+        function printQuotation() {
+            window.print();
+        }
+
+        function goBack() {
+            document.getElementById("templatePage").style.display = "none";
+            document.getElementById("quotationForm").style.display = "block";
+        }
+    </script>
+</body>
+</html>
